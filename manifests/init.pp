@@ -41,7 +41,7 @@ class naturalislogforwarder (
   $receiver_ip = '127.0.0.1',
   $file_input_hash = {
     'examplename' =>{
-      'path'   => ['/tmp/test.log'],
+      'paths'   => ['/tmp/test.log'],
       'fields' => {'tags' => 'test'}
       }
     },
