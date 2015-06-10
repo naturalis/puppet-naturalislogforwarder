@@ -22,7 +22,7 @@ class naturalislogforwarder::receiver(
 
   class { 'logstash':
     package_url => $package_url,
-    require     => Package['openjdk-7']
+    require     => Package['openjdk-7-jre']
   }
 
   file {'/etc/logstash/keys':
