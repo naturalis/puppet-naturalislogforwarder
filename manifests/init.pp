@@ -61,7 +61,7 @@ class naturalislogforwarder (
   class { 'logstashforwarder':
     servers     => [$receiver_dns],
     ssl_ca      => '/etc/logstashforwarder/receiver.crt',
-    require     => File['/etc/logstashforwarder/receiver.crt'],
+  #  require     => File['/etc/logstashforwarder/receiver.crt'],
     package_url => $package_url,
   }
 
@@ -70,6 +70,6 @@ class naturalislogforwarder (
     ip     => $receiver_ip,
     before => Class['logstashforwarder'],
   }
-  
+
   create_resources(logstashforwarder::file, $file_input_hash,{})
 }
