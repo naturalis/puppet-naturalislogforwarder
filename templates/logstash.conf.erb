@@ -12,7 +12,7 @@ input {
 output {
   if "_grokparsefailure" not in [tags] {
     redis {
-      host => [ <%= scope.lookupvar("naturalislogforwarder::receiver::redis_servers").join('","').to_s %>  ]
+      host => [ "<%= scope.lookupvar("naturalislogforwarder::receiver::redis_servers").join('","').to_s %>"  ]
       key => 'logstash:redis'
       data_type => 'list'
       password => '<%= scope.lookupvar("naturalislogforwarder::receiver::redis_password") %>'
