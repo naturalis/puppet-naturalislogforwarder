@@ -37,7 +37,8 @@
 #
 class naturalislogforwarder (
   $certificate,
-  $receiver_adress = [],
+  $receiver_dns = 'logstash-receiver.naturalis.nl',
+  $receiver_ip = '127.0.0.1',
   $file_input_hash = {
     'examplename' =>{
       'path'   => ['/tmp/test.log'],
@@ -58,12 +59,16 @@ class naturalislogforwarder (
   }
 
   class { 'logstashforwarder':
-    servers     => $receiver_adress,
+    servers     => [$receiver_dns],
     ssl_ca      => '/etc/logstashforwarder/receiver.crt',
     require     => File['/etc/logstashforwarder/receiver.crt'],
     package_url => $package_url,
   }
 
   logstashforwarder::file { $file_input_hash :}
+
+  host { $receiver_dns :
+    ip => $receiver_ip
+  }
 
 }
