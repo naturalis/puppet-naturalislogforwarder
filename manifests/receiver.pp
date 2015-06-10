@@ -34,7 +34,7 @@ class naturalislogforwarder::receiver(
     notify  => Service['logstash'],
   }
 
-  file {'/etc/logstash/conf.d':
+  file {'/etc/logstash/conf.d/logstash.conf':
     ensure  => present,
     content => template('naturalislogforwarder/logstash.conf.erb'),
     require => Class['logstash'],
