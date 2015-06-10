@@ -16,21 +16,31 @@ class naturalislogforwarder::receiver(
 
 ){
 
+  package { 'openjdk-7-jre':
+    ensure => present,
+  }
+
   class { 'logstash':
     package_url => $package_url,
+    require     => Package['openjdk-7']
+  }
+
+  file {'/etc/logstash/keys':
+    ensure  => directory,
+    require => File['/etc/logstash']
   }
 
   file {'/etc/logstash/keys/lumberjack.crt':
     ensure  => present,
     content => $ssl_certificate,
-    require => File['/etc/logstash/conf.d'],
+    require => File['/etc/logstash/keys'],
     notify  => Service['logstash'],
   }
 
   file {'/etc/logstash/keys/lumberjack.key':
     ensure  => present,
     content => $ssl_key,
-    require => File['/etc/logstash/conf.d'],
+    require => File['/etc/logstash/keys'],
     notify  => Service['logstash'],
   }
 
