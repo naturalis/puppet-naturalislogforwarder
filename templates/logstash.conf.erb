@@ -17,7 +17,7 @@ output {
       data_type => 'list'
       password => '<%= scope.lookupvar("naturalislogforwarder::receiver::redis_password") %>'
     }
-  else {
+  }else{
     file {
       path => [ "/var/log/logstash/output.log" ]
     }
