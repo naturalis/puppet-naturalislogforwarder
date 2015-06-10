@@ -39,12 +39,12 @@ class naturalislogforwarder (
   $certificate,
   $receiver_dns = 'logstash-receiver.naturalis.nl',
   $receiver_ip = '127.0.0.1',
-  $file_input_hash = {
+  $file_input_hash = [{
     'examplename' =>{
       'paths'   => ['/tmp/test.log'],
       'fields' => {'tags' => 'test'}
       }
-    },
+    }],
   $package_url = 'https://download.elastic.co/logstash-forwarder/binaries/logstash-forwarder_0.4.0_amd64.deb'
   ){
 
