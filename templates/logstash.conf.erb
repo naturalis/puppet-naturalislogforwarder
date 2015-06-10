@@ -1,0 +1,11 @@
+input {
+  lumberjack {
+    port => "<%= scope.lookupvar("naturalislogforwarder::receiver::incomming_port") %>"
+    ssl_certificate => "/etc/logstash/keys/lumberjack.crt"
+    ssl_key => "/etc/logstash/keys/lumberjack.key"
+  }
+}
+<%= scope.lookupvar("naturalislogforwarder::receiver::logstash_filter") %>
+output {
+  file { path => "/tmp/logstash_out"}
+}
