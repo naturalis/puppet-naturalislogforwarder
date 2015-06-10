@@ -7,6 +7,19 @@ input {
   }
 }
 <%= scope.lookupvar("naturalislogforwarder::receiver::logstash_filter") %>
+
+
 output {
-  file { path => "/tmp/logstash_out"}
+  if "_grokparsefailure" not in [tags] {
+    redis {
+      host => [ <%= scope.lookupvar("naturalislogforwarder::receiver::redis_servers").join('","').to_s %>  ]
+      key => 'logstash:redis'
+      data_type => 'list'
+      password => '<%= scope.lookupvar("naturalislogforwarder::receiver::redis_password") %>'
+    }
+  else {
+    file {
+      path => [ "/var/log/logstash/output.log" ]
+    }
+  }
 }

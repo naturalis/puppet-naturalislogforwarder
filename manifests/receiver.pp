@@ -4,7 +4,7 @@
 class naturalislogforwarder::receiver(
 
     $redis_password,
-    $redis_servers,
+    $redis_servers = [],
 
     $ssl_certificate,
     $ssl_key,
