@@ -23,21 +23,21 @@ class naturalislogforwarder::receiver(
   file {'/etc/logstash/keys/lumberjack.crt':
     ensure  => present,
     content => $ssl_certificate,
-    require => Class['logstash'],
+    require => File['/etc/logstash/conf.d'],
     notify  => Service['logstash'],
   }
 
   file {'/etc/logstash/keys/lumberjack.key':
     ensure  => present,
     content => $ssl_key,
-    require => Class['logstash'],
+    require => File['/etc/logstash/conf.d'],
     notify  => Service['logstash'],
   }
 
   file {'/etc/logstash/conf.d/logstash.conf':
     ensure  => present,
     content => template('naturalislogforwarder/logstash.conf.erb'),
-    require => Class['logstash'],
+    require => File['/etc/logstash/conf.d'],
     notify  => Service['logstash'],
   }
 
