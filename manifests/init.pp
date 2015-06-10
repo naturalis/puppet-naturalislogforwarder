@@ -48,9 +48,9 @@ class naturalislogforwarder (
   $package_url = 'https://download.elastic.co/logstash-forwarder/binaries/logstash-forwarder_0.4.0_amd64.deb'
   ){
 
-  file {'/etc/logstashforwarder':
-    ensure => directory,
-  }
+  # file {'/etc/logstashforwarder':
+  #   ensure => directory,
+  # }
 
   file {'/etc/logstashforwarder/receiver.crt':
     ensure  => present,
