@@ -1,0 +1,14 @@
+{
+  "name": "naturalis-naturalislogforwarder",
+  "version": "0.1.0",
+  "author": "Atze de Vries",
+  "summary": "Wrapper around logstash forwarder class",
+  "license": "Apache-2.0",
+  "source": "github",
+  "project_page": "google",
+  "issues_url": "github",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
