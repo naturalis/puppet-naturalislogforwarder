@@ -7,6 +7,7 @@ class naturalislogforwarder::receiver(
     $redis_servers = [],
 
     $elasticsearch_cluster_name,
+    $elasticsearch_main_ip,
 
     $ssl_certificate,
     $ssl_key,
