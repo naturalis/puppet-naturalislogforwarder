@@ -9,7 +9,7 @@ input {
 #### Redis Servers
 <% scope.lookupvar("naturalislogforwarder::receiver::redis_servers").each do |rs| %>
   redis {
-    host => '<% rs %>'
+    host => '<% puts rs %>'
     key => 'logstash:redis'
     data_type => 'list'
     password => '<%= scope.lookupvar("naturalislogforwarder::receiver::redis_password") %>'
