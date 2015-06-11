@@ -27,14 +27,19 @@ output {
     elasticsearch {
       cluster => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_cluster_name") %>'
       index   => 'logstash-suricata-%{+YYYY.MM.dd}'
+      host    => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_main_ip") %>'
     }
   } else if 'test' in [tags] {
     elasticsearch {
       cluster => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_cluster_name") %>'
       index   => 'logstash-test-%{+YYYY.MM.dd}'
+      host    => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_main_ip") %>'
     }
   } else {
-    elasticsearch { cluster => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_cluster_name") %>' }
+    elasticsearch {
+      cluster => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_cluster_name") %>'
+      host    => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_main_ip") %>'
+    }
   }
 }
 
