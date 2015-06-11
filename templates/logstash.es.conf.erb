@@ -1,4 +1,5 @@
 input {
+
   lumberjack {
     codec => json
     port => "<%= scope.lookupvar("naturalislogforwarder::receiver::incomming_port") %>"
@@ -22,8 +23,24 @@ input {
 <%= scope.lookupvar("naturalislogforwarder::receiver::logstash_filter") %>
 
 output {
-  #if "_grokparsefailure" not in [tags] {
-    file {
-      path => [ "/var/log/logstash/output.log" ]
+  if 'suricata' in [tags] {
+    elasticsearch {
+      cluster => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_cluster_name") %>'
+      index   => 'logstash-suricata-%{+YYYY.MM.dd}'
+    }
+  } else if 'test' in [tags] {
+    elasticsearch {
+      cluster => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_cluster_name") %>'
+      index   => 'logstash-test-%{+YYYY.MM.dd}'
+    }
+  } else {
+    elasticsearch { cluster => '<%= scope.lookupvar("naturalislogforwarder::receiver::elasticsearch_cluster_name") %>' }
   }
 }
+
+#output {
+#  if "_grokparsefailure" not in [tags] {
+#    file {
+#      path => [ "/var/log/logstash/output.log" ]
+#  }
+#}
