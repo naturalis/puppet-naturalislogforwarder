@@ -39,14 +39,10 @@ class naturalislogforwarder (
 
   $certificate,
 
-  $hosts = {
-    'test1.example.com' => {
-      'ip' => '127.0.0.1'
-    },
-    'test2.example.com' => {
-      'ip' => '127.0.0.1'
-    }
-  },
+  $hosts = [
+    {'test1.example.com' => {'ip' => '127.0.0.1'}},
+    {'test2.example.com' => {'ip' => '127.0.0.1'}}
+  ],
 
   $lumberjack_hosts = ['test1.example.com:12345','test2.example.com:4567'],
 
