@@ -91,6 +91,6 @@ class naturalislogforwarder (
   #   before => Class['logstashforwarder'],
   # }
 
-  create_resources(hosts, $hosts, {})
+  create_resources(host, $hosts, {})
   create_resources(logstashforwarder::file, $file_input_hash,{})
 }
