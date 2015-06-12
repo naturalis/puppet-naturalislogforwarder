@@ -39,10 +39,14 @@ class naturalislogforwarder (
 
   $certificate,
 
-  $hosts = [
-    {'test1.example.com' => {'ip' => '127.0.0.1'}},
-    {'test2.example.com' => {'ip' => '127.0.0.1'}}
-  ],
+  $hosts = {
+    'test1.example.com' => {
+      'ip' => '127.0.0.1'
+    },
+    'test2.example.com' => {
+      'ip' => '127.0.0.1'
+    }
+  },
 
   $lumberjack_hosts = ['test1.example.com:12345','test2.example.com:4567'],
 
@@ -79,13 +83,14 @@ class naturalislogforwarder (
     package_url => $package_url,
   }
 
-  host { $hosts :
-    before => Class['logstashforwarder'],
-  }
+  # host { $hosts :
+  #   before => Class['logstashforwarder'],
+  # }
   # host { $receiver_dns :
   #   ip     => $receiver_ip,
   #   before => Class['logstashforwarder'],
   # }
 
+  create_resources(hosts, $hosts, {})
   create_resources(logstashforwarder::file, $file_input_hash,{})
 }
