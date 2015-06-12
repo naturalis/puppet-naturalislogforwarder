@@ -36,22 +36,38 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class naturalislogforwarder (
+
   $certificate,
-  $receiver_dns = 'logstash-receiver.naturalis.nl',
-  $receiver_port = 12345,
-  $receiver_ip = '127.0.0.1',
+
+  $hosts = {
+    'test1.example.com' => {
+      'ip' => '127.0.0.1'
+    },
+    'test2.example.com' => {
+      'ip' => '127.0.0.1'
+    }
+  },
+
+  $lumberjack_hosts = ['test1.example.com:12345','test2.example.com:4567'],
+
   $file_input_hash = {
     'examplename' =>{
       'paths'   => ['/tmp/test.log'],
       'fields' => {'tags' => 'test'}
       }
     },
+
   $package_url = 'https://download.elastic.co/logstash-forwarder/binaries/logstash-forwarder_0.4.0_amd64.deb'
-  ){
+
+){
 
   # file {'/etc/logstashforwarder':
   #   ensure => directory,
   # }
+
+  #  $receiver_dns = 'logstash-receiver.naturalis.nl',
+  #  $receiver_port = 12345,
+  #  $receiver_ip = '127.0.0.1',
 
   file {'/etc/logstashforwarder/receiver.crt':
     ensure  => present,
@@ -60,17 +76,20 @@ class naturalislogforwarder (
   }
 
   class { 'logstashforwarder':
-    servers     => ["${receiver_dns}:${receiver_port}"],
+    servers     => $lumberjack_hosts,
+    #servers     => ["${receiver_dns}:${receiver_port}"],
     ssl_ca      => '/etc/logstashforwarder/receiver.crt',
   #  require     => File['/etc/logstashforwarder/receiver.crt'],
     package_url => $package_url,
   }
 
-
-  host { $receiver_dns :
-    ip     => $receiver_ip,
+  host { $hosts :
     before => Class['logstashforwarder'],
   }
+  # host { $receiver_dns :
+  #   ip     => $receiver_ip,
+  #   before => Class['logstashforwarder'],
+  # }
 
   create_resources(logstashforwarder::file, $file_input_hash,{})
 }
