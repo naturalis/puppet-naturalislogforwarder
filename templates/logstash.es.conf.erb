@@ -4,7 +4,7 @@ input {
     codec => json
     port => "<%= scope.lookupvar("naturalislogforwarder::receiver::incomming_port") %>"
     ssl_certificate => "/etc/logstash/keys/star.logforwarder.naturalis.nl.crt"
-    ssl_key => "/etc/logstash/keys/star.logforwarder.naturalis.nl.crt"
+    ssl_key => "/etc/logstash/keys/star.logforwarder.naturalis.nl.key"
   }
 
 #### Redis Servers
